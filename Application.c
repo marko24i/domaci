@@ -5,7 +5,10 @@
 int main()
 {
   FILE *fp;
+  char broj[5];
   int x =0;
+  char znak = ';';
+  
   while(1)
     {
       //  fp = fopen("/dev/fifo" , "r");
@@ -14,10 +17,10 @@ int main()
       //  puts("Problem pri otvaranju /dev/fifo");
       //  return -1;
       //	}
-      printf("MENI:\n\n");
-      printf("1: Upisi u FIFO bafer\n\n");
-      printf("2: Procitaj iz FIFO bafera\n\n");
-      printf("3: Izadji \n\n");
+      printf("MENI:\n");
+      printf("1: Upisi u FIFO bafer\n");
+      printf("2: Procitaj iz FIFO bafera\n");
+      printf("3: Izadji \n");
 
       scanf("%d " , &x);
 
@@ -25,6 +28,8 @@ int main()
 	{
 	case 1:
 	  {
+	    int uslov1 = 1;
+	    int uslov2 = 1;
 	    printf("Upis: \n");
 	    fp = fopen ("/dev/fifo","w");
 	    if(fp == NULL)
@@ -32,6 +37,31 @@ int main()
 		puts("Problem pri otvaranju /dev/fifo");
 		return -1;
 	      }
+	    while(uslov2)
+	      {
+		printf("Unesi broj: ");
+		scanf("%s", broj);
+		if(uslov1)
+		  {
+		    fprintf(fp,"%s", broj);
+		    uslov1=0;
+		  }
+		else
+		  {
+		    if(broj[0] == 'Q')
+		      uslov2=0;
+		    else
+		      fprintf(fp,";%s", broj);
+		  }
+	      
+	      }
+	    fputs("\n",fp);
+	    if(fclose(fp))
+	      {
+		puts("Problem pri zatvaranju /dev/fifo");
+		return -1;
+	      }
+	    
 	    break;
 	  }
 	case 2:
