@@ -22,7 +22,7 @@ int main()
       printf("2: Procitaj iz FIFO bafera\n");
       printf("3: Izadji \n");
 
-      scanf("%d " , &x);
+      scanf("%d", &x);
 
       switch(x)
 	{
@@ -30,7 +30,7 @@ int main()
 	  {
 	    int uslov1 = 1;
 	    int uslov2 = 1;
-	    printf("Upis: \n");
+	    printf("Unesi vrednost: \n");
 	    fp = fopen ("/dev/fifo","w");
 	    if(fp == NULL)
 	      {
@@ -89,13 +89,14 @@ int main()
 	  }
 	case 3:
 	  {
-	    printf("Izlaz \n\n");
-	    if(fclose(fp))
+	   printf("Izlaz \n\n");
+	   /* if(fclose(fp))
 	      {
 		puts("Problem pri zatvaranju /dev/fifo");
 		return -1;
-	      }
+		}*/
 	    return 0;
+	    break;
 	  }
 	  
 	}
