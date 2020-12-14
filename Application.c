@@ -66,7 +66,25 @@ int main()
 	  }
 	case 2:
 	  {
-	    printf("Ispis: \n\n");
+	    char *vr;
+	    size_t num_bit = 5;
+	    fp = fopen("/dev/fifo","r");
+	    if(fp == NULL)
+	      {
+		puts("Problem pri otvaranju /dev/fifo");
+		return -1;
+	      }
+
+	    vr = (char*) malloc(num_bit);
+	    getline(&vr,&num_bit,fp);
+	    printf("Procitana vrednost: %s\n", vr);
+
+	    free(vr);
+	    if(fclose(fp))
+	      {
+		puts("Problem pri zatvaranju /dev/fifo ");
+		return -1;
+	      }
 	    break;
 	  }
 	case 3:
